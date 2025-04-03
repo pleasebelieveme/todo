@@ -3,6 +3,7 @@ package org.example.todo.controller;
 import org.example.todo.dto.request.SignUpRequestDto;
 import org.example.todo.dto.response.SignUpResponseDto;
 import org.example.todo.service.MemberService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +22,10 @@ public class MemberController {
 
 	private final MemberService memberService;
 
-	@PostMapping
+	@PostMapping("/signup")
 	public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {
-		return null;
+		System.out.println("컨트롤러 호출");
+		SignUpResponseDto signUpResponseDto = memberService.signUp(requestDto);
+		return new ResponseEntity<SignUpResponseDto>(signUpResponseDto, HttpStatus.CREATED);
 	}
 }

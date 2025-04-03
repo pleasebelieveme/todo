@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 
+// use todo; 실행으로 mysql 스키마를 지정해주지 않으면 오류
 @Getter
 @Entity
 @Table(name = "todo")

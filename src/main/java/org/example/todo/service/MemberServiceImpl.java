@@ -11,6 +11,7 @@ import org.example.todo.entity.Member;
 import org.example.todo.repository.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 		Member findMember = optionalMember.get();
 		return new MemberResponseDto(findMember.getName(), findMember.getEmail());
+	}
+
+	@Transactional
+	@Override
+	public void updatePassword(Long id, String oldPassword, String newPassword) {
+		Member findMember = memberRepository.findByIdOrElseThrow(id);
+		if(!findMember.getPassword().equals(oldPassword)) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+		}
+		findMember.updatePassword(newPassword);
 	}
 }

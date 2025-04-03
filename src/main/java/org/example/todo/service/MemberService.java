@@ -13,4 +13,6 @@ public interface MemberService {
 	SignUpResponseDto signUp(SignUpRequestDto requestDto);
 	List<MemberResponseDto> findAllMembers();
 	MemberResponseDto findById(Long id);
+
+	void updatePassword(Long id, String oldPassword, String newPassword);
 }

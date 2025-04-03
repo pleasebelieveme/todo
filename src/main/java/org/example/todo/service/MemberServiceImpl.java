@@ -1,6 +1,10 @@
 package org.example.todo.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.todo.dto.request.SignUpRequestDto;
+import org.example.todo.dto.response.MemberResponseDto;
 import org.example.todo.dto.response.SignUpResponseDto;
 import org.example.todo.entity.Member;
 import org.example.todo.repository.MemberRepository;
@@ -19,5 +23,11 @@ public class MemberServiceImpl implements MemberService {
 		Member member = new Member(requestDto.getName(), requestDto.getPassword(), requestDto.getEmail());
 		Member savedMember = memberRepository.save(member);
 		return new SignUpResponseDto(savedMember.getId(), savedMember.getName(), savedMember.getEmail());
+	}
+
+	@Override
+	public List<MemberResponseDto> findAllMembers() {
+		List<Member> memberList = memberRepository.findAll();
+		return memberList.stream().map(Member::toDto).collect(Collectors.toList());
 	}
 }

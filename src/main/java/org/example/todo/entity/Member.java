@@ -1,5 +1,7 @@
 package org.example.todo.entity;
 
+import org.example.todo.dto.response.MemberResponseDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,10 @@ public class Member extends BaseEntity {
 		this.name = name;
 		this.password = password;
 		this.email = email;
+	}
+
+	public MemberResponseDto toDto() {
+		return new MemberResponseDto(this.name, this.email);
 	}
 
 	public void updatePassword(String password) {

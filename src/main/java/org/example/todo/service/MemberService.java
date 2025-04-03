@@ -15,4 +15,6 @@ public interface MemberService {
 	MemberResponseDto findById(Long id);
 
 	void updatePassword(Long id, String oldPassword, String newPassword);
+
+	void delete(Long id);
 }

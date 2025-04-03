@@ -54,4 +54,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 		findMember.updatePassword(newPassword);
 	}
+
+	@Override
+	public void delete(Long id) {
+		Member findMember = memberRepository.findByIdOrElseThrow(id);
+		memberRepository.delete(findMember);
+	}
 }

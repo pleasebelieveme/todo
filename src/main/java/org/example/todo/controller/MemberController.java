@@ -10,6 +10,7 @@ import org.example.todo.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class MemberController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {
-		System.out.println("컨트롤러 호출");
+		// System.out.println("컨트롤러 호출");
 		SignUpResponseDto signUpResponseDto = memberService.signUp(requestDto);
 		return new ResponseEntity<SignUpResponseDto>(signUpResponseDto, HttpStatus.CREATED);
 	}
@@ -37,5 +38,10 @@ public class MemberController {
 	@GetMapping
 	public List<MemberResponseDto> findAllMembers() {
 		return memberService.findAllMembers();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<MemberResponseDto> findMemberById(@PathVariable Long id) {
+		return new ResponseEntity<MemberResponseDto>(memberService.findById(id), HttpStatus.OK);
 	}
 }

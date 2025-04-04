@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface TodoService {
-	public TodoResponseDto save(String title, String contents, Member member);
 
+	public TodoResponseDto save(String title, String contents, Member member);
 	List<TodoResponseDto> findAllTodos();
+	TodoResponseDto findById(Long id);
 }

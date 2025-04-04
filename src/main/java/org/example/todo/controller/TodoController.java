@@ -1,5 +1,7 @@
 package org.example.todo.controller;
 
+import java.util.List;
+
 import org.example.todo.dto.request.CreateTodoRequestDto;
 import org.example.todo.dto.response.TodoResponseDto;
 import org.example.todo.entity.Member;
@@ -7,6 +9,7 @@ import org.example.todo.repository.MemberRepository;
 import org.example.todo.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,4 +31,11 @@ public class TodoController {
 		TodoResponseDto TodoResponseDto = todoService.save(requestDto.getTitle(), requestDto.getContents(), member);
 		return new ResponseEntity<>(TodoResponseDto, HttpStatus.CREATED);
 	}
+
+	@GetMapping
+	public List<TodoResponseDto> findAll() {
+		return todoService.findAllTodos();
+	}
+
+
 }

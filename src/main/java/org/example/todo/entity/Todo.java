@@ -1,6 +1,8 @@
 package org.example.todo.entity;
 
 import org.aspectj.weaver.loadtime.definition.Definition;
+import org.example.todo.dto.response.MemberResponseDto;
+import org.example.todo.dto.response.TodoResponseDto;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
@@ -39,6 +41,10 @@ public class Todo extends BaseEntity {
 		this.title = title;
 		this.contents = contents;
 		this.member = member;
+	}
+
+	public TodoResponseDto toDto() {
+		return new TodoResponseDto(this.id, this.title, this.contents, this.member);
 	}
 
 	public void setMember(Member member) {

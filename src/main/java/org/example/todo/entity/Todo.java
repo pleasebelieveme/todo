@@ -47,6 +47,11 @@ public class Todo extends BaseEntity {
 		return new TodoResponseDto(this.id, this.title, this.contents, this.member);
 	}
 
+	public void update(String title, String contents) {
+		this.title = title;
+		this.contents = contents;
+	}
+
 	public void setMember(Member member) {
 		this.member = member;
 	}

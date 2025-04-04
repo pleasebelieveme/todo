@@ -12,4 +12,5 @@ public interface TodoService {
 	public TodoResponseDto save(String title, String contents, Member member);
 	List<TodoResponseDto> findAllTodos();
 	TodoResponseDto findById(Long id);
+	void updateTodo(Long id, String title, String contents);
 }

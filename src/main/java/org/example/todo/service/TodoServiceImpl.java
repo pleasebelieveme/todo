@@ -12,6 +12,7 @@ import org.example.todo.repository.MemberRepository;
 import org.example.todo.repository.TodoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
@@ -48,4 +49,10 @@ public class TodoServiceImpl implements TodoService {
 		return new TodoResponseDto(findTodo.getId(), findTodo.getTitle(), findTodo.getContents(), findTodo.getMember());
 	}
 
+	@Transactional
+	@Override
+	public void updateTodo(Long id, String title, String contents) {
+		Todo findTodo = todoRepository.findByIdOrElseThrow(id);
+		findTodo.update(title, contents);
+	}
 }

@@ -35,9 +35,10 @@ public class Todo extends BaseEntity {
 
 	public Todo () {}
 
-	public Todo(String title, String contents) {
+	public Todo(String title, String contents, Member member) {
 		this.title = title;
 		this.contents = contents;
+		this.member = member;
 	}
 
 	public void setMember(Member member) {

@@ -1,5 +1,7 @@
 package org.example.todo.repository;
 
+import java.util.Optional;
+
 import org.example.todo.dto.request.SignUpRequestDto;
 import org.example.todo.dto.response.SignUpResponseDto;
 import org.example.todo.entity.Member;
@@ -10,6 +12,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member,Long> {
+
+	Optional<Member> findMemberByName(String name);
+
+	default Member findMemberByNameOrElseThrow(String name) {
+		return findMemberByName(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist username = " + name));
+	}
 
 	default Member findByIdOrElseThrow(Long id) {
 		return findById(id)

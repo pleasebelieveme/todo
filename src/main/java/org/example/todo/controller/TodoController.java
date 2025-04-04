@@ -10,6 +10,7 @@ import org.example.todo.repository.MemberRepository;
 import org.example.todo.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +53,12 @@ public class TodoController {
 		@RequestBody UpdateTodoRequestDto requestDto
 	) {
 		todoService.updateTodo(id, requestDto.getTitle(), requestDto.getContents());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		todoService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

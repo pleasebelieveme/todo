@@ -55,4 +55,10 @@ public class TodoServiceImpl implements TodoService {
 		Todo findTodo = todoRepository.findByIdOrElseThrow(id);
 		findTodo.update(title, contents);
 	}
+
+	@Override
+	public void delete(Long id) {
+		Todo findTodo = todoRepository.findByIdOrElseThrow(id);
+		todoRepository.delete(findTodo);
+	}
 }

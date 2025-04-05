@@ -3,6 +3,7 @@ package org.example.todo.filter;
 import java.io.IOException;
 
 import org.apache.coyote.Request;
+import org.example.todo.common.Const;
 import org.springframework.util.PatternMatchUtils;
 
 import jakarta.servlet.Filter;
@@ -21,22 +22,24 @@ public class LoginFilter implements Filter {
 	private static final String[] WHITE_LIST = {"/", "/members/signup", "/members/login", "/members/logout"};
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws
-		IOException,
-		ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String requestURI = httpRequest.getRequestURI();
 
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-		log.info("로그인 필터 로직 실행");
+		log.info("로그인 필터 로직 실행: " + requestURI);
 
 		// 인증 로직
 		if(!isWhiteList(requestURI)) {
 			HttpSession session = httpRequest.getSession(false);
 			// 세션이 없는 경우
-			if(session != null || session.getAttribute("sessionKey") == null) {
+			if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
+				httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				httpResponse.setContentType("application/json");
+				httpResponse.getWriter().write("{\"message\": \"로그인을 해주세요.\"}");
+				// return;
 				throw new RuntimeException("로그인 해주세요.");
 			}
 			log.info("로그인 성공!");

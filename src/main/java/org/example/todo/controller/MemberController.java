@@ -48,7 +48,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		session.setAttribute(Const.LOGIN_USER, id);
 
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(responseDto, HttpStatus.OK);
 	}
 
 	@PostMapping("/signup")

@@ -2,8 +2,11 @@ package org.example.todo.controller;
 
 import java.util.List;
 
+import org.example.todo.common.Const;
+import org.example.todo.dto.request.LoginRequestDto;
 import org.example.todo.dto.request.SignUpRequestDto;
 import org.example.todo.dto.request.UpdatePasswordRequestDto;
+import org.example.todo.dto.response.LoginResponseDto;
 import org.example.todo.dto.response.MemberResponseDto;
 import org.example.todo.dto.response.SignUpResponseDto;
 import org.example.todo.entity.Member;
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +37,19 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
 	private final MemberService memberService;
+
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponseDto> login(
+		@RequestBody @Valid LoginRequestDto requestDto,
+		HttpServletRequest request
+	){
+		LoginResponseDto responseDto = memberService.login(requestDto.getEmail(),requestDto.getPassword());
+		Long id = responseDto.getId();
+		HttpSession session = request.getSession();
+		session.setAttribute(Const.LOGIN_USER, id);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {

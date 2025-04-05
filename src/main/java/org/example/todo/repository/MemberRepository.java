@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 public interface MemberRepository extends JpaRepository<Member,Long> {
 
 	Optional<Member> findMemberByName(String name);
+	Optional<Member> findMemberByEmail(String email);
 
 	default Member findMemberByNameOrElseThrow(String name) {
 		return findMemberByName(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist username = " + name));

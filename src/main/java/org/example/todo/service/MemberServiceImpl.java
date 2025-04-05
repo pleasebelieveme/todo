@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.example.todo.dto.request.SignUpRequestDto;
+import org.example.todo.dto.response.LoginResponseDto;
 import org.example.todo.dto.response.MemberResponseDto;
 import org.example.todo.dto.response.SignUpResponseDto;
 import org.example.todo.entity.Member;
@@ -21,6 +22,18 @@ import lombok.RequiredArgsConstructor;
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberRepository memberRepository;
+
+	@Override
+	public LoginResponseDto login(String email, String password) {
+		Member member = memberRepository.findMemberByEmail(email).orElseThrow(
+			() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
+
+		if (!password.equals(member.getPassword())) {
+			throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+		}
+
+		return new LoginResponseDto(member.getId());
+	}
 
 	@Override
 	public SignUpResponseDto signUp(SignUpRequestDto requestDto) {
@@ -60,4 +73,6 @@ public class MemberServiceImpl implements MemberService {
 		Member findMember = memberRepository.findByIdOrElseThrow(id);
 		memberRepository.delete(findMember);
 	}
+
+
 }

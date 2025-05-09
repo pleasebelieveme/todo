@@ -72,52 +72,43 @@ ORM : ![Static Badge](https://img.shields.io/badge/JPA-FFA500?style=flat)
 # 📂 디렉토리 구조  
 ```java
 └── src
-    ├── main
-    │   ├── java
-    │   │   └── org
-    │   │       └── example
-    │   │           └── todov2
-    │   │               ├── common
-    │   │               └── domain
-    │   │                   ├── comment
-    │   │                   │   ├── controller
-    │   │                   │   ├── dto
-    │   │                   │   │   ├── request
-    │   │                   │   │   └── response
-    │   │                   │   ├── entity
-    │   │                   │   ├── repository
-    │   │                   │   └── service
-    │   │                   ├── member
-    │   │                   │   ├── controller
-    │   │                   │   ├── dto
-    │   │                   │   │   ├── request
-    │   │                   │   │   └── response
-    │   │                   │   ├── entity
-    │   │                   │   ├── repository
-    │   │                   │   └── service
-    │   │                   ├── reply
-    │   │                   │   ├── controller
-    │   │                   │   ├── dto
-    │   │                   │   │   ├── request
-    │   │                   │   │   └── response
-    │   │                   │   ├── entity
-    │   │                   │   ├── repository
-    │   │                   │   └── service
-    │   │                   └── todo
-    │   │                       ├── controller
-    │   │                       ├── dto
-    │   │                       │   ├── request
-    │   │                       │   └── response
-    │   │                       ├── entity
-    │   │                       ├── repository
-    │   │                       └── service
-    │   └── resources
-    │       ├── static
-    │       └── templates
-    └── test
-        └── java
-            └── org
-                └── example
-                    └── todov2
-
+    └── main
+        └── java
+            └── org
+                └── example
+                    └── todo
+                        ├── TodoApplication.java
+                        ├── common
+                        │   └── Const.java
+                        ├── config
+                        │   └── WebConfig.java
+                        ├── controller
+                        │   ├── MemberController.java
+                        │   └── TodoController.java
+                        ├── dto
+                        │   ├── request
+                        │   │   ├── CreateTodoRequestDto.java
+                        │   │   ├── LoginRequestDto.java
+                        │   │   ├── SignUpRequestDto.java
+                        │   │   ├── UpdatePasswordRequestDto.java
+                        │   │   └── UpdateTodoRequestDto.java
+                        │   └── response
+                        │       ├── LoginResponseDto.java
+                        │       ├── MemberResponseDto.java
+                        │       ├── SignUpResponseDto.java
+                        │       └── TodoResponseDto.java
+                        ├── entity
+                        │   ├── BaseEntity.java
+                        │   ├── Member.java
+                        │   └── Todo.java
+                        ├── filter
+                        │   └── LoginFilter.java
+                        ├── repository
+                        │   ├── MemberRepository.java
+                        │   └── TodoRepository.java
+                        └── service
+                            ├── MemberService.java
+                            ├── MemberServiceImpl.java
+                            ├── TodoService.java
+                            └── TodoServiceImpl.java
 ```
